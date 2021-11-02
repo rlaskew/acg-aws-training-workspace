@@ -10,3 +10,13 @@ aws dynamodb create-table --table-name redshift-import --attribute-definitions A
 aws dynamodb list-tables
 aws dynamodb batch-write-item --request-items file://redshift-data.json
 aws dynamodb scan --table-name redshift-import
+
+
+# arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+# arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+
+aws iam create-role --role-name redshift-import --tags Key=name,Value=redshift-import --assume-role-policy-document file:file://assume-role-policy-document.json
+aws iam get-role --role-name redshift-import
+aws iam attach-role-policy --role-name redshift-import --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+aws iam attach-role-policy --role-name redshift-import --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+aws iam list-attached-role-policies --role-name redshift-import
