@@ -22,3 +22,8 @@ aws iam get-role --role-name redshift-import
 aws iam attach-role-policy --role-name redshift-import --policy-arn arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
 aws iam attach-role-policy --role-name redshift-import --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
 aws iam list-attached-role-policies --role-name redshift-import
+
+
+sudo yum install postgresql
+export REDSHIFT_ROLE_ARN=$(aws iam list-roles | jq .Roles | jq -r '.[].Arn | select(contains("redshift-import"))')
+export PGHOST=$(aws redshift describe-clusters | jq -r .Clusters[0].Endpoint.Address)
