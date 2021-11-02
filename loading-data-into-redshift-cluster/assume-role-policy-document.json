@@ -1,12 +1,13 @@
 ## from https://devops.stackexchange.com/questions/5094/what-is-the-purpose-of-assumerolepolicydocument-in-iam/5099
+### dont need "AssumeRolePolicyDocument":   for command line option
 
-"AssumeRolePolicyDocument": {
+{
     "Version": "2012-10-17",
     "Statement": [
         {
             "Effect": "Allow",
             "Principal": {
-                "Service": ["lambda.amazonaws.com"]
+                "Service": ["ec2.amazonaws.com"]
             },
             "Action": ["sts:AssumeRole"]
         }
