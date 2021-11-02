@@ -27,3 +27,5 @@ aws iam list-attached-role-policies --role-name redshift-import
 sudo yum install postgresql
 export REDSHIFT_ROLE_ARN=$(aws iam list-roles | jq .Roles | jq -r '.[].Arn | select(contains("redshift-import"))')
 export PGHOST=$(aws redshift describe-clusters | jq -r .Clusters[0].Endpoint.Address)
+export CLUSTER_IDENTIFIER=$(aws redshift describe-clusters | jq -r .Clusters[0].ClusterIdentifier)
+aws redshift modify-cluster-iam-roles  --cluster-identifier $CLUSTER_NAME --add-iam-roles $REDSHIFT_ROLE_ARN
